@@ -80,10 +80,10 @@ class _BluetoothAppState extends State<BluetoothApp> {
     return MaterialApp(
       home: Scaffold(
         key: _scaffoldKey,
-        appBar: AppBar(
-          title: Text("Flutter Bluetooth"),
-          backgroundColor: Colors.deepPurple,
-        ),
+        // appBar: AppBar(
+        //   title: Text("Flutter Bluetooth"),
+        //   backgroundColor: Colors.deepPurple,
+        // ),
         body: Container(
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -140,12 +140,12 @@ class _BluetoothAppState extends State<BluetoothApp> {
                         FlatButton(
                           onPressed:
                               _connected ? _sendOnMessageToBluetooth : null,
-                          child: Text("ON"),
+                          child: Text("LOCK"),
                         ),
                         FlatButton(
                           onPressed:
                               _connected ? _sendOffMessageToBluetooth : null,
-                          child: Text("OFF"),
+                          child: Text("UNLOCK"),
                         ),
                       ],
                     ),
@@ -222,7 +222,7 @@ class _BluetoothAppState extends State<BluetoothApp> {
     bluetooth.isConnected.then((isConnected) {
       if (isConnected) {
         bluetooth.write("2");
-        show('Device Turned On');
+        show('Device Locked');
       }
     });
   }
@@ -233,7 +233,7 @@ class _BluetoothAppState extends State<BluetoothApp> {
     bluetooth.isConnected.then((isConnected) {
       if (isConnected) {
         bluetooth.write("1");
-        show('Device Turned Off');
+        show('Device Unlocked');
       }
     });
   }

@@ -32,7 +32,7 @@ class _UpdateProfilePageState extends StateMVC<UpdateProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(Prompts.updateYourProfile),
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.teal,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -50,48 +50,48 @@ class _UpdateProfilePageState extends StateMVC<UpdateProfilePage> {
                   //validator: _con.validateName,
                   onSaved: (input) => _con.set_name = input,
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: Userinfo.age,
-                    labelText: widget.user.age
-                  ),
-                  maxLength: 2,
-                  validator: _con.validateAge,
-                  onSaved: (input) => _con.set_age = input,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Radio (
-                      value: 0,
-                      groupValue: _con.genderBtnValue,
-                      onChanged: handleGenderValueChange,
-                    ),
-                    Text(Userinfo.gender0),
-                    Radio (
-                      value: 1,
-                      groupValue: _con.genderBtnValue,
-                      onChanged: handleGenderValueChange,
-                    ),
-                    Text(Userinfo.gender1),
-                    Radio (
-                      value: 2,
-                      groupValue: _con.genderBtnValue,
-                      onChanged: handleGenderValueChange,
-                    ),
-                    Text(Userinfo.gender2),
-                  ]
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: Userinfo.occupation,
-                    labelText: widget.user.occupation
-                  ),
-                  maxLength: 32,
-                  validator: _con.validateOccupation,
-                  onSaved: (input) => _con.set_occupation = input,
-                ),
+                // TextFormField(
+                //   decoration: InputDecoration(
+                //     hintText: Userinfo.age,
+                //     labelText: widget.user.age
+                //   ),
+                //   maxLength: 2,
+                //   validator: _con.validateAge,
+                //   onSaved: (input) => _con.set_age = input,
+                // ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: <Widget>[
+                //     Radio (
+                //       value: 0,
+                //       groupValue: _con.genderBtnValue,
+                //       onChanged: handleGenderValueChange,
+                //     ),
+                //     Text(Userinfo.gender0),
+                //     Radio (
+                //       value: 1,
+                //       groupValue: _con.genderBtnValue,
+                //       onChanged: handleGenderValueChange,
+                //     ),
+                //     Text(Userinfo.gender1),
+                //     Radio (
+                //       value: 2,
+                //       groupValue: _con.genderBtnValue,
+                //       onChanged: handleGenderValueChange,
+                //     ),
+                //     Text(Userinfo.gender2),
+                //   ]
+                // ),
+                // TextFormField(
+                //   decoration: InputDecoration(
+                //     hintText: Userinfo.occupation,
+                //     labelText: widget.user.occupation
+                //   ),
+                //   maxLength: 32,
+                //   validator: _con.validateOccupation,
+                //   onSaved: (input) => _con.set_occupation = input,
+                // ),
                 TextFormField(
                     decoration: InputDecoration(
                       hintText: Userinfo.mobileNumber,
@@ -104,8 +104,8 @@ class _UpdateProfilePageState extends StateMVC<UpdateProfilePage> {
                 ),
                 SizedBox(height: 15.0),
                 RaisedButton(
-              color: Colors.green[800],
-              splashColor: Colors.green[300],
+              color: Colors.red[800],
+              splashColor: Colors.red[300],
               textTheme: ButtonTextTheme.primary,
               padding: EdgeInsets.symmetric(horizontal: 50.0),
               elevation: 6,

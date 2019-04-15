@@ -34,15 +34,15 @@ class Controller extends ControllerMVC {
   set set_name(String _name) {
     name = _name;
   }
-  set set_age(String _age) {
-    age = _age;
-  }
-  set set_gender(int g_Val) {
-    _genderBtnValue = g_Val;
-  }
-  set set_occupation(String _occupation) {
-    occupation = _occupation;
-  }
+  // set set_age(String _age) {
+  //   age = _age;
+  // }
+  // set set_gender(int g_Val) {
+  //   _genderBtnValue = g_Val;
+  // }
+  // set set_occupation(String _occupation) {
+  //   occupation = _occupation;
+  // }
   set set_mobile(String _mobile) {
     mobile = _mobile;
   }
@@ -78,9 +78,9 @@ class Controller extends ControllerMVC {
         Firestore.instance.collection("users").document("$uid").setData({
           "email": "$email",
           "name": "$name",
-          "age": "$age",
-          "gender": "$gender",
-          "occupation": "$occupation",
+          // "age": "$age",
+          // "gender": "$gender",
+          // "occupation": "$occupation",
           "mobile": "$mobile",
           "username": "$name",
           "photoUrl": null,

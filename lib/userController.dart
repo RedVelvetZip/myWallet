@@ -16,6 +16,7 @@ class userController{
 
   LocationData _location;
   static String _uid;
+  static String _email;
   static String _age;
   static String _gender;
   static String _mobile;
@@ -23,7 +24,7 @@ class userController{
   static String _occupation;
   static String _photoUrl;
 
-  static List _interests;
+  static List _devices;
   static double _latitude;
   static double _longitude;
  
@@ -33,6 +34,7 @@ class userController{
   }
 
   String get uid => _uid;
+  String get email => _email;
   String get name => _name;
   String get age => _age;
   String get gender => _gender;
@@ -41,7 +43,7 @@ class userController{
   String get photoUrl => _photoUrl;
 
 
-  List get interests => _interests;
+  List get devices => _devices;
   LocationData get location => _location;
   double get latitude => _latitude;
   double get longitude => longitude;
@@ -54,12 +56,13 @@ class userController{
       .get().then((DocumentSnapshot){
         print('Load Data From Firebase');
         print(DocumentSnapshot.data['name'].toString());
+        _email = DocumentSnapshot.data['email'].toString();
         _age = DocumentSnapshot.data['age'].toString();
         _gender = DocumentSnapshot.data['gender'].toString();
         _mobile = DocumentSnapshot.data['mobile'].toString();
         _name = DocumentSnapshot.data['name'].toString();
         _occupation = DocumentSnapshot.data['occupation'].toString();
-        _interests = DocumentSnapshot.data['interests'];
+        _devices = DocumentSnapshot.data['devices'];
         _photoUrl = DocumentSnapshot.data['photoUrl'].toString();
         GeoPoint __location = DocumentSnapshot.data['location'];
         _latitude = __location.latitude;

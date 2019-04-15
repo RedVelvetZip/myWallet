@@ -8,6 +8,7 @@ import 'package:bluewallet/prop-config.dart';
 import 'package:bluewallet/analyticsController.dart';
 import 'package:bluewallet/userController.dart';
 import 'package:bluewallet/bluetooth/bluetooth.dart';
+import 'package:bluewallet/Devices/devices.dart';
 
 class Home extends StatefulWidget {
 
@@ -71,11 +72,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               //return MessagePage(user: widget.user, analControl: widget.analControl);
               break;
 
-            // case Headers.findBuddies:
-            //   widget.analControl.sendAnalytics('nav_to_buddies');
-            //   return ProfilePage(user: widget.user, analControl: widget.analControl);
-            //   //return BuddiesPage(user: widget.user, analControl: widget.analControl);
-            //   break;
+             case Headers.devices:
+              widget.analControl.sendAnalytics('nav_to_buddies');
+              return DevicePage(user: widget.user, analControl: widget.analControl);
+              //return BuddiesPage(user: widget.user, analControl: widget.analControl);
+              break;
 
             case Headers.settings:
               widget.analControl.sendAnalytics('nav_to_settings');
@@ -98,22 +99,22 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           BottomNavyBarItem(
             icon: Icon(Icons.portrait),
             title: Text(Headers.profile),
-            activeColor: Colors.green,
+            activeColor: Colors.purple,
           ),
           BottomNavyBarItem(
               icon: Icon(Icons.bluetooth_searching),
               title: Text(Headers.newdevice),
-              activeColor: Colors.green,
+              activeColor: Colors.purple,
           ),
-          // BottomNavyBarItem(
-          //     icon: Icon(Icons.people),
-          //     title: Text(Headers.findBuddies),
-          //     activeColor: Colors.green,
-          // ),
+          BottomNavyBarItem(
+              icon: Icon(Icons.list),
+              title: Text("Devices"),
+              activeColor: Colors.purple,
+          ),
           BottomNavyBarItem(
               icon: Icon(Icons.settings),
               title: Text(Headers.settings),
-              activeColor: Colors.green,
+              activeColor: Colors.purple,
           ),
         ],
       )

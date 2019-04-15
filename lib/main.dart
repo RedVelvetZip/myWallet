@@ -10,10 +10,11 @@ class MyApp extends StatelessWidget {
   Future <Map<PermissionGroup, PermissionStatus>> permissions = 
     PermissionHandler().
       requestPermissions([PermissionGroup.location, PermissionGroup.mediaLibrary]);
-  
   Function() {
     print(PermissionStatus.values);
   }
+  final _analyticsController = analyticsController();
+  
   @override
   Widget build(BuildContext context) {
     var materialApp = MaterialApp(

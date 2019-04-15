@@ -60,42 +60,42 @@ class _SignUpPageState extends StateMVC<SignUpPage> {
                         //validator: _con.validateName,
                         onSaved: (input) => _con.set_name = input,
                       ),
-                      TextFormField(
-                        decoration: InputDecoration(hintText: Userinfo.age),
-                        maxLength: 2,
-                        //validator: _con.validateAge,
-                        onSaved: (input) => _con.set_age = input,
-                      ),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Radio(
-                              value: 0,
-                              groupValue: _con.genderBtnValue,
-                              onChanged: handleGenderValueChange,
-                            ),
-                            Text(Userinfo.gender0),
-                            Radio(
-                              value: 1,
-                              groupValue: _con.genderBtnValue,
-                              onChanged: handleGenderValueChange,
-                            ),
-                            Text(Userinfo.gender1),
-                            Radio(
-                              value: 2,
-                              groupValue: _con.genderBtnValue,
-                              onChanged: handleGenderValueChange,
-                            ),
-                            Text(Userinfo.gender2),
-                          ]),
-                      TextFormField(
-                        decoration:
-                            InputDecoration(hintText: Userinfo.occupation),
-                        maxLength: 32,
-                        //validator: _con.validateOccupation,
-                        onSaved: (input) => _con.set_occupation = input,
-                      ),
+                      // TextFormField(
+                      //   decoration: InputDecoration(hintText: Userinfo.age),
+                      //   maxLength: 2,
+                      //   //validator: _con.validateAge,
+                      //   onSaved: (input) => _con.set_age = input,
+                      // ),
+                      // Row(
+                      //     crossAxisAlignment: CrossAxisAlignment.center,
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: <Widget>[
+                      //       Radio(
+                      //         value: 0,
+                      //         groupValue: _con.genderBtnValue,
+                      //         onChanged: handleGenderValueChange,
+                      //       ),
+                      //       Text(Userinfo.gender0),
+                      //       Radio(
+                      //         value: 1,
+                      //         groupValue: _con.genderBtnValue,
+                      //         onChanged: handleGenderValueChange,
+                      //       ),
+                      //       Text(Userinfo.gender1),
+                      //       Radio(
+                      //         value: 2,
+                      //         groupValue: _con.genderBtnValue,
+                      //         onChanged: handleGenderValueChange,
+                      //       ),
+                      //       Text(Userinfo.gender2),
+                      //     ]),
+                      // TextFormField(
+                      //   decoration:
+                      //       InputDecoration(hintText: Userinfo.occupation),
+                      //   maxLength: 32,
+                      //   //validator: _con.validateOccupation,
+                      //   onSaved: (input) => _con.set_occupation = input,
+                      // ),
                       TextFormField(
                         decoration:
                             InputDecoration(hintText: Userinfo.mobileNumber),
@@ -135,10 +135,10 @@ class _SignUpPageState extends StateMVC<SignUpPage> {
                 ))));
   }
 
-  void handleGenderValueChange(int value) {
-    setState(() {
-      _con.set_gender = value;
-      print(Userinfo.gender + " ${_con.genderBtnValue}");
-    });
-  }
+  // void handleGenderValueChange(int value) {
+  //   setState(() {
+  //     _con.set_gender = value;
+  //     print(Userinfo.gender + " ${_con.genderBtnValue}");
+  //   });
+  // }
 }

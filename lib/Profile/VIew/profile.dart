@@ -92,21 +92,21 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
                         padding: EdgeInsets.all(4.0),
                       ),
                       Text(
-                        '${Userinfo.age}: ${widget.user.age}',
+                        'Email: ${widget.user.email}',
                         style: Theme.of(context)
                             .textTheme
                             .body1
                             .merge(TextStyle(color: Colors.white)),
                         // textAlign: TextAlign.left,
                       ),
-                      Text(
-                        '${Userinfo.occupation}: ${widget.user.occupation}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .body1
-                            .merge(TextStyle(color: Colors.white)),
-                        textAlign: TextAlign.right,
-                      ),
+                      // Text(
+                      //   'ID: ${widget.user.uid}',
+                      //   style: Theme.of(context)
+                      //       .textTheme
+                      //       .body1
+                      //       .merge(TextStyle(color: Colors.white)),
+                      //   textAlign: TextAlign.right,
+                      // ),
                     ],
                   )
                 ]),
@@ -116,7 +116,7 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
                 padding: EdgeInsets.all(10.0),
                 child: Column(children: <Widget>[
                   Text(
-                    Userinfo.interests,
+                    "Devices",
                     style: Theme.of(context)
                         .textTheme
                         .body2
@@ -127,7 +127,7 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
                     padding: EdgeInsets.all(2.0),
                   ),
                   Text(
-                    '${widget.user.interests.toString().replaceAll('[', '').replaceAll(']', '')}',
+                    '${widget.user.devices.toString().replaceAll('[', '').replaceAll(']', '')}',
                     style: Theme.of(context)
                         .textTheme
                         .body1

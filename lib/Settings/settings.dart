@@ -5,7 +5,7 @@ import 'package:bluewallet/userController.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({
-    Key key,
+    Key key, 
     this.analControl,
     @required this.user 
   }) : super(key: key);
