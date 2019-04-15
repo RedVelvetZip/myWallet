@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:wallet/prop-config.dart';
-import 'package:wallet/analyticsController.dart';
+import 'package:bluewallet/prop-config.dart';
+import 'package:bluewallet/analyticsController.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:wallet/profile/Controller/profileController.dart';
-import 'package:wallet/userController.dart';
+import 'package:bluewallet/profile/Controller/profileController.dart';
+import 'package:bluewallet/userController.dart';
 //import 'package:location/location.dart';
 
 class ProfilePage extends StatefulWidget {

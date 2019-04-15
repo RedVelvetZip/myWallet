@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 //import 'package:wallet/Profile/profile.dart';
-import 'package:wallet/Search/search.dart';
-import 'package:wallet/Devices/devices.dart'; 
+import 'package:bluewallet/bluetooth/bluetooth.dart';
+//import 'package:bluewallet/Devices/devices.dart'; 
 //import 'package:wallet/Settings/settings.dart';
 
 class Home extends StatefulWidget {
@@ -62,9 +62,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                   //(user: widget.user);
               break;
 
-            case 'Devices':
-              return DevicePage(user: widget.user);
-              break;
+            // case 'Devices':
+            //   return DevicePage(user: widget.user);
+            //   break;
 
             case 'Settings':
               //return SettingsPage(user: widget.user);

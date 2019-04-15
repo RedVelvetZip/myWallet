@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:wallet/Welcome/login/view.dart';
-import 'package:wallet/Welcome/signup/view.dart';
-import 'package:wallet/analyticsController.dart';
+import 'package:bluewallet/Welcome/login/view.dart';
+import 'package:bluewallet/Welcome/signup/view.dart';
+import 'package:bluewallet/analyticsController.dart';
 
 
 class Controller extends ControllerMVC {

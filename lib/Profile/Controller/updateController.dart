@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wallet/prop-config.dart';
+import 'package:bluewallet/prop-config.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:wallet/userController.dart';
+import 'package:bluewallet/userController.dart';
 
 class Controller extends ControllerMVC {
   factory Controller() {

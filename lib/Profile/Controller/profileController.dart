@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:wallet/Profile/View/updateView.dart';
-import 'package:wallet/Profile/View/editInterestsView.dart';
-import 'package:wallet/analyticsController.dart';
-import 'package:wallet/userController.dart';
+import 'package:bluewallet/Profile/View/updateView.dart';
+import 'package:bluewallet/Profile/View/editInterestsView.dart';
+import 'package:bluewallet/analyticsController.dart';
+import 'package:bluewallet/userController.dart';
 import 'package:location/location.dart';
 
 class Controller extends ControllerMVC {

@@ -3,11 +3,11 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 //import 'package:bluewallet/buddies/View/buddies.dart';
 import 'package:bluewallet/Profile/View/profile.dart';
 //import 'package:bluewallet/messages/messages.dart';
-import 'package:wallet/Settings/settings.dart';
-import 'package:wallet/prop-config.dart';
-import 'package:wallet/analyticsController.dart';
-import 'package:wallet/userController.dart';
-import 'package:wallet/Search/search.dart';
+import 'package:bluewallet/Settings/settings.dart';
+import 'package:bluewallet/prop-config.dart';
+import 'package:bluewallet/analyticsController.dart';
+import 'package:bluewallet/userController.dart';
+import 'package:bluewallet/bluetooth/bluetooth.dart';
 
 class Home extends StatefulWidget {
 

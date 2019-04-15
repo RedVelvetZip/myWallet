@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wallet/prop-config.dart';
+import 'package:bluewallet/prop-config.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:wallet/Welcome/controller.dart';
-import 'package:wallet/analyticsController.dart';
+import 'package:bluewallet/Welcome/controller.dart';
+import 'package:bluewallet/analyticsController.dart';
 
 class WelcomePage extends StatefulWidget {
 
