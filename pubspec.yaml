@@ -18,6 +18,25 @@ environment:
 
 dependencies:
   flutter_bluetooth_serial: ^0.0.4
+  firebase_core: ^0.3.1+1         #base
+  firebase_analytics: ^2.0.2+1    #with base
+  cloud_firestore: ^0.9.5+2       #for login auth
+  firebase_auth: ^0.8.1+4         #login auth
+  bottom_navy_bar: ^2.2.0         #bottom navigation bar from home.dart
+  google_sign_in: ^4.0.1+1
+  firebase_database: ^2.0.2
+  mvc_pattern: ^3.2.3
+  google_maps_flutter: ^0.4.0
+  permission_handler: ^2.2.0
+  location: ^2.3.2
+  cached_network_image: ^0.7.0
+  firebase_messaging: ^4.0.0+1
+  firebase_storage: ^2.1.0+1
+  fluttertoast: ^3.0.3
+  shared_preferences: ^0.5.1+2
+  image_picker: ^0.5.0+9
+  intl: ^0.15.8
+  geoflutterfire: ^2.0.3+2
   flutter:
     sdk: flutter
 
