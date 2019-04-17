@@ -5,7 +5,6 @@ import 'package:bluewallet/Profile/View/updateView.dart';
 import 'package:bluewallet/Profile/View/editInterestsView.dart';
 import 'package:bluewallet/analyticsController.dart';
 import 'package:bluewallet/userController.dart';
-import 'package:location/location.dart';
 
 class Controller extends ControllerMVC {
   factory Controller() {
@@ -18,27 +17,6 @@ class Controller extends ControllerMVC {
 
   static Controller get con => _this;
 
-  static Future<void> updateLocation(BuildContext context,
-      analyticsController analControl, userController user) async {
-    LocationData currentLocation;
-
-    var location = new Location();
-    try {
-      currentLocation = await location.getLocation();
-    } catch (e) {
-      if (e.code == 'PERMISSION_DENIED') {
-        print(e.message);
-      }
-      currentLocation = null;
-    }
-    String uid = user.uid;
-    var geopoint =
-        new GeoPoint(currentLocation.latitude, currentLocation.longitude);
-    Firestore.instance
-        .collection("users")
-        .document("$uid")
-        .updateData({"location": geopoint});
-  }
 
   Future NavigateToUpdateProfile(BuildContext context,
       analyticsController analControl, userController user) async {

@@ -28,7 +28,7 @@ class _WelcomePageState extends StateMVC<WelcomePage> {
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("https://www.primeinspiration.com/wp-content/uploads/2015/11/information-security.jpg"),
+            image: AssetImage("assets/circuits.jpg"),
             fit: BoxFit.fitHeight,
           ),
         ),

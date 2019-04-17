@@ -36,7 +36,7 @@ class _SetupNewPageState extends State<SetupNewPage> {
           ),
           RaisedButton(
               onPressed: () {},
-              child: Text('where can I get one'),
+              child: Text('Where can I get a Secure Device?'),
           ),
         ],
       )

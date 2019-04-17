@@ -36,17 +36,14 @@ class userController{
   String get uid => _uid;
   String get email => _email;
   String get name => _name;
-  String get age => _age;
-  String get gender => _gender;
   String get mobile => _mobile;
-  String get occupation => _occupation;
   String get photoUrl => _photoUrl;
 
 
   List get devices => _devices;
   LocationData get location => _location;
   double get latitude => _latitude;
-  double get longitude => longitude;
+  double get longitude => _longitude;
   LatLng get latlng => LatLng(_latitude, _longitude);
 
   
@@ -57,11 +54,8 @@ class userController{
         print('Load Data From Firebase');
         print(DocumentSnapshot.data['name'].toString());
         _email = DocumentSnapshot.data['email'].toString();
-        _age = DocumentSnapshot.data['age'].toString();
-        _gender = DocumentSnapshot.data['gender'].toString();
         _mobile = DocumentSnapshot.data['mobile'].toString();
         _name = DocumentSnapshot.data['name'].toString();
-        _occupation = DocumentSnapshot.data['occupation'].toString();
         _devices = DocumentSnapshot.data['devices'];
         _photoUrl = DocumentSnapshot.data['photoUrl'].toString();
         GeoPoint __location = DocumentSnapshot.data['location'];
@@ -86,5 +80,28 @@ class userController{
       _location = null;
       return null;
     }
+  }
+
+Future updateLocation() async {
+
+    LocationData currentLocation;
+
+    var location = new Location();
+    try {
+      currentLocation = await location.getLocation();
+      
+    } catch (e) {
+      if (e.code == 'PERMISSION_DENIED') {
+        print(e.message);
+      }
+      currentLocation = null;
+    }
+    var geopoint =
+        new GeoPoint(currentLocation.latitude, currentLocation.longitude);
+    Firestore.instance
+        .collection("users")
+        .document("$_uid")
+        .updateData({"location": geopoint});
+    
   }
 }

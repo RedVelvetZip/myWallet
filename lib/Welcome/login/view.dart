@@ -3,8 +3,6 @@ import 'package:bluewallet/prop-config.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:bluewallet/Welcome/login/controller.dart';
 import 'package:bluewallet/analyticsController.dart';
-//import 'package:firebase_analytics/firebase_analytics.dart';
-//import 'package:firebase_analytics/observer.dart';
 
 class LoginPage extends StatefulWidget {
 
@@ -30,6 +28,14 @@ class _LoginPageState extends StateMVC<LoginPage> {
         backgroundColor: Colors.teal,
       ),
       body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage("https://images.alphacoders.com/588/thumb-1920-588588.jpg"),
+            fit: BoxFit.fitHeight,
+        ),),
+      child: Container(
           margin: EdgeInsets.all(25.0),
       child: Form(
         key: _con.formkey,
@@ -85,6 +91,7 @@ class _LoginPageState extends StateMVC<LoginPage> {
           ],
         ),
       ),
+      )
       )
     );
   }

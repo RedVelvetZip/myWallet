@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bluewallet/Devices/mydevices.dart';
 import 'package:bluewallet/Devices/addremovedevices.dart';
 import 'package:bluewallet/Devices/shareaccess.dart';
@@ -7,6 +6,8 @@ import 'package:bluewallet/Devices/accessothers.dart';
 import 'package:bluewallet/Devices/setupnew.dart';
 import 'package:bluewallet/analyticsController.dart';
 import 'package:bluewallet/userController.dart';
+import 'package:bluewallet/prop-config.dart';
+import 'package:bluewallet/settings/controller.dart';
 
 
 class DevicePage extends StatefulWidget {
@@ -23,62 +24,126 @@ class DevicePage extends StatefulWidget {
 }
 
 class _DevicePageState extends State<DevicePage> {
-  //bool _isButtonDisabled = true;
-  //_isButtonDisabled ? true : (some page)
+  var linearGradient = const BoxDecoration(
+      gradient: const LinearGradient(
+        begin: FractionalOffset.centerRight,
+        end: FractionalOffset.bottomLeft,
+        colors: <Color>[
+          const Color(0xFF413070),
+          const Color(0xFF2B264A),
+        ],
+      ),
+    );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-      child: IntrinsicWidth(
+        child: Container(
+          decoration: linearGradient,
+      //child: IntrinsicWidth(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          RaisedButton(
-              onPressed: NavigateToMyDevices,
-              child: Text('My Devices'),
-              color: Colors.deepOrange,
-              textColor: Colors.white,
-          ),
-          RaisedButton(
-              onPressed: NavigateToAddRemoveDevices,
+          ButtonTheme( 
+              minWidth: 120,
+            child: RaisedButton(
+              color: Colors.red,
+              splashColor: Colors.red[300],
+              textTheme: ButtonTextTheme.primary,
+              padding: EdgeInsets.all(20.0),
+              elevation: 6,
+              shape: BeveledRectangleBorder(
+                side: BorderSide(
+                  width: 2.0, 
+                  color: Colors.deepPurple[800],
+                ), 
+                borderRadius: BorderRadius.circular(10), 
+              ),
+              onPressed: () { 
+                     // Controller.NavigateToAddRemoveDevices(context);
+              },
               child: Text('Add/Remove Device'),
-              color: Colors.indigo,
-              textColor: Colors.white,
           ),
-          RaisedButton(
-              onPressed: NavigateToShareAccess,
-              child: Text('I want to share access'),
-              color: Colors.teal,
-              textColor: Colors.white,
           ),
-          RaisedButton(
-              onPressed: NavigateToAccessOthers,
-              child: Text('I want to access a wallet that is not mine'),
-              color: Colors.teal,
-              textColor: Colors.white,
-          ),
-          RaisedButton(
-              onPressed: NavigateToSetupNew,
-              child: Text('I need to setup my new Secure Wallet!'),
+          ButtonTheme( 
+              minWidth: 120,
+            child: RaisedButton(
               color: Colors.green,
-              textColor: Colors.white,
+              splashColor: Colors.red[300],
+              textTheme: ButtonTextTheme.primary,
+              padding: EdgeInsets.all(20.0),
+              elevation: 6,
+              shape: BeveledRectangleBorder(
+                side: BorderSide(
+                  width: 2.0, 
+                  color: Colors.deepPurple[800],
+                ), 
+                borderRadius: BorderRadius.circular(10), 
+              ),
+              onPressed: () { 
+                     // Controller.NavigateToShareDevices(context);
+              },
+              child: Text('Share Access'),
           ),
+          ),
+          ButtonTheme( 
+              minWidth: 120,
+            child: RaisedButton(
+              color: Colors.teal,
+              splashColor: Colors.red[300],
+              textTheme: ButtonTextTheme.primary,
+              padding: EdgeInsets.all(20.0),
+              elevation: 6,
+              shape: BeveledRectangleBorder(
+                side: BorderSide(
+                  width: 2.0, 
+                  color: Colors.deepPurple[800],
+                ), 
+                borderRadius: BorderRadius.circular(10), 
+              ),
+              onPressed: () { 
+                      //Controller.NavigateToSetupNew(context);
+              },
+              child: Text('How do I set up a new Secure Device?'),
+          ),
+          ),
+          ButtonTheme( 
+              minWidth: 120,
+            child: RaisedButton(
+              color: Colors.teal,
+              splashColor: Colors.red[300],
+              textTheme: ButtonTextTheme.primary,
+              padding: EdgeInsets.all(20.0),
+              elevation: 6,
+              shape: BeveledRectangleBorder(
+                side: BorderSide(
+                  width: 2.0, 
+                  color: Colors.deepPurple[800],
+                ), 
+                borderRadius: BorderRadius.circular(10), 
+              ),
+              onPressed: () { 
+                      Controller.navigateToSupport(context);
+              },
+              child: Text(Prompts.support),
+          ),
+          )
         ],
+      //),
       ),
-      ),
-      ),
+      ),)
     );
   }
-  void NavigateToMyDevices() {
-    Navigator.push(
-      context, 
-      MaterialPageRoute(
-        builder: (context) => MyDevicesPage(),
-        fullscreenDialog: true
-      )
-    );
-  }
+  // void NavigateToMyDevices() {
+  //   Navigator.push(
+  //     context, 
+  //     MaterialPageRoute(
+  //       builder: (context) => MyDevicesPage(),
+  //       fullscreenDialog: true
+  //     )
+  //   );
+  // }
   void NavigateToAddRemoveDevices() {
     Navigator.push(
       context, 

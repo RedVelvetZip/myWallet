@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:bluewallet/prop-config.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:bluewallet/analyticsController.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:bluewallet/profile/Controller/profileController.dart';
 import 'package:bluewallet/userController.dart';
-//import 'package:location/location.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key, this.analControl, @required this.user})
@@ -29,7 +29,7 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
     widget.user.load_data_from_firebase();
     widget.analControl.currentScreen('profile_page', 'ProfilePageOver');
 
-    Controller.updateLocation(context, widget.analControl, widget.user);
+    widget.user.updateLocation();
 
     var linearGradient = const BoxDecoration(
       gradient: const LinearGradient(
@@ -97,16 +97,7 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
                             .textTheme
                             .body1
                             .merge(TextStyle(color: Colors.white)),
-                        // textAlign: TextAlign.left,
                       ),
-                      // Text(
-                      //   'ID: ${widget.user.uid}',
-                      //   style: Theme.of(context)
-                      //       .textTheme
-                      //       .body1
-                      //       .merge(TextStyle(color: Colors.white)),
-                      //   textAlign: TextAlign.right,
-                      // ),
                     ],
                   )
                 ]),
@@ -127,7 +118,9 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
                     padding: EdgeInsets.all(2.0),
                   ),
                   Text(
-                    '${widget.user.devices.toString().replaceAll('[', '').replaceAll(']', '')}',
+                    //'${widget.user.devices.toString().replaceAll('[', '').replaceAll(']', '')}',
+                    //'${widget.user.devices['devicename']}',
+                    'Brad\'s wallet HC-05',
                     style: Theme.of(context)
                         .textTheme
                         .body1
@@ -136,20 +129,12 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
                   ),
                 ]),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 70.0),
-                height: MediaQuery.of(context).size.height * .26,
-                width: MediaQuery.of(context).size.width * .4,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  color: Colors.grey[400],
-                ),
-                // child: GoogleMap(
-                //   myLocationEnabled: true,
-                //   initialCameraPosition:
-                //       CameraPosition(target: widget.user.latlng, zoom: 10),
-                //   onMapCreated: (GoogleMapController controller) {},
-                // ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+              ),
+              buildMap(context, widget.user.latitude, widget.user.longitude),
+              Padding(
+                padding: EdgeInsets.all(12.0),
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 50.0),
@@ -176,35 +161,26 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
                   )
                 )
               ),
-              // Container(
-              //   margin: EdgeInsets.symmetric(horizontal: 50.0),
-              //   child: ButtonTheme(
-              //     minWidth: 250,
-              //     child: RaisedButton(
-              //       color: Colors.green[800],
-              //       splashColor: Colors.green[300],
-              //       textTheme: ButtonTextTheme.primary,
-              //       padding: EdgeInsets.symmetric(horizontal: 50.0),
-              //       elevation: 6,
-              //       shape: BeveledRectangleBorder(
-              //         side: BorderSide(
-              //           width: 2.0,
-              //           color: Colors.deepPurple[800],
-              //         ),
-              //         borderRadius: BorderRadius.circular(10),
-              //       ),
-              //       onPressed: () {
-              //         widget.analControl.sendAnalytics('to_edit_interests');
-              //         _con.NavigateToEditInterests(context, widget.analControl, widget.user);
-              //       },
-              //       child: Text(Prompts.editInterests),
-              //     )
-              //   )
-              // )
-            ],
+             ],
           ),
         ),
       ),
     );
   }
+}
+Widget buildMap(BuildContext context, double latitude, double longitude) {
+  return Container(
+    margin: EdgeInsets.symmetric(horizontal: 70.0),
+    height: MediaQuery.of(context).size.height * .26,
+    width: MediaQuery.of(context).size.width * .4,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(15.0),
+      color: Colors.grey[400],
+    ),
+    child: GoogleMap(
+      myLocationEnabled: true,
+      initialCameraPosition:
+          CameraPosition(target: LatLng(latitude, longitude), zoom: 10),
+    ),
+  );
 }

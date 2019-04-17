@@ -20,6 +20,16 @@ class _BluetoothAppState extends State<BluetoothApp> {
   BluetoothDevice _device;
   bool _connected = false;
   bool _pressed = false;
+  var linearGradient = const BoxDecoration(
+      gradient: const LinearGradient(
+        begin: FractionalOffset.centerRight,
+        end: FractionalOffset.bottomLeft,
+        colors: <Color>[
+          const Color(0xFF413070),
+          const Color(0xFF2B264A),
+        ],
+      ),
+    );
 
   @override
   void initState() {
@@ -85,6 +95,7 @@ class _BluetoothAppState extends State<BluetoothApp> {
         //   backgroundColor: Colors.deepPurple,
         // ),
         body: Container(
+          decoration: linearGradient,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
@@ -104,13 +115,15 @@ class _BluetoothAppState extends State<BluetoothApp> {
                     Text(
                       'Device:',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.bold, color: Colors.blue
                       ),
                     ),
                     DropdownButton(
                       items: _getDeviceItems(),
                       onChanged: (value) => setState(() => _device = value),
                       value: _device,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.blue)
                     ),
                     RaisedButton(
                       onPressed:
@@ -133,7 +146,7 @@ class _BluetoothAppState extends State<BluetoothApp> {
                             "DEVICE 1",
                             style: TextStyle(
                               fontSize: 20,
-                              color: Colors.green,
+                              color: Colors.red,
                             ),
                           ),
                         ),

@@ -36,7 +36,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     Headers.newdevice,
     Headers.devices,
     //Headers.findBuddies,
-    Headers.settings,
+    //Headers.settings,
   ];
 
   @override
@@ -78,11 +78,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               //return BuddiesPage(user: widget.user, analControl: widget.analControl);
               break;
 
-            case Headers.settings:
-              widget.analControl.sendAnalytics('nav_to_settings');
-              //return ProfilePage(user: widget.user, analControl: widget.analControl);
-              return SettingsPage(user: widget.user, analControl: widget.analControl);
-              break;
+            // case Headers.settings:
+            //   widget.analControl.sendAnalytics('nav_to_settings');
+            //   //return ProfilePage(user: widget.user, analControl: widget.analControl);
+            //   return SettingsPage(user: widget.user, analControl: widget.analControl);
+            //   break;
 
             default:
               return ProfilePage(user: widget.user, analControl: widget.analControl);
@@ -103,19 +103,19 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           ),
           BottomNavyBarItem(
               icon: Icon(Icons.bluetooth_searching),
-              title: Text(Headers.newdevice),
+              title: Text('Connect'),
               activeColor: Colors.purple,
           ),
           BottomNavyBarItem(
               icon: Icon(Icons.list),
-              title: Text("Devices"),
+              title: Text("Settings"),
               activeColor: Colors.purple,
           ),
-          BottomNavyBarItem(
-              icon: Icon(Icons.settings),
-              title: Text(Headers.settings),
-              activeColor: Colors.purple,
-          ),
+          // BottomNavyBarItem(
+          //     icon: Icon(Icons.settings),
+          //     title: Text(Headers.settings),
+          //     activeColor: Colors.purple,
+          // ),
         ],
       )
     );
