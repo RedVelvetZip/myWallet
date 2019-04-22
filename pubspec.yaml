@@ -67,7 +67,7 @@ flutter:
    - assets/Pat.jpg
    - assets/Forest.jpg
    - assets/Emma.jpg
-  #  - images/a_dot_ham.jpeg
+   - assets/info.txt
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

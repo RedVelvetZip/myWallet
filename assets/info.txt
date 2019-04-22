@@ -1,0 +1,6 @@
+SecureWallet is a product that will protect your personal info as well as physical assets.
+With location tracking services, radio-frequency identification (RFID) scan protection, a solenoid lock mechanism, and login verification through this app, you can feel Secure!
+
+If you'd like to set up a new device, you need the product key on the packaging. On the settings tab, you click on 'Add/Remove Device'. Once there, enter the email address of the SecureWallet App account that you'd like to link the device to. This info will be added to our firebase database, listing that email as the owner of the device.
+
+Other users can be given access to your device. As the owner of a device, you can go to the 'Share Access' tab in settings, and add the email of any user account that you'd like to extend access of your device to. Be careful who you share access with!

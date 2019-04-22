@@ -61,7 +61,7 @@ class _DevicePageState extends State<DevicePage> {
                 borderRadius: BorderRadius.circular(10), 
               ),
               onPressed: () { 
-                     // Controller.NavigateToAddRemoveDevices(context);
+                     NavigateToAddRemoveDevices(context);
               },
               child: Text('Add/Remove Device'),
           ),
@@ -82,7 +82,7 @@ class _DevicePageState extends State<DevicePage> {
                 borderRadius: BorderRadius.circular(10), 
               ),
               onPressed: () { 
-                     // Controller.NavigateToShareDevices(context);
+                     NavigateToShareAccess(context);
               },
               child: Text('Share Access'),
           ),
@@ -103,7 +103,7 @@ class _DevicePageState extends State<DevicePage> {
                 borderRadius: BorderRadius.circular(10), 
               ),
               onPressed: () { 
-                      //Controller.NavigateToSetupNew(context);
+                      NavigateToSetupNew(context);
               },
               child: Text('How do I set up a new Secure Device?'),
           ),
@@ -135,16 +135,8 @@ class _DevicePageState extends State<DevicePage> {
       ),)
     );
   }
-  // void NavigateToMyDevices() {
-  //   Navigator.push(
-  //     context, 
-  //     MaterialPageRoute(
-  //       builder: (context) => MyDevicesPage(),
-  //       fullscreenDialog: true
-  //     )
-  //   );
-  // }
-  void NavigateToAddRemoveDevices() {
+
+  void NavigateToAddRemoveDevices(context) {
     Navigator.push(
       context, 
       MaterialPageRoute(
@@ -152,7 +144,7 @@ class _DevicePageState extends State<DevicePage> {
         fullscreenDialog: true
       )
     );
-  }void NavigateToShareAccess() {
+  }void NavigateToShareAccess(context) {
     Navigator.push(
       context, 
       MaterialPageRoute(
@@ -161,16 +153,7 @@ class _DevicePageState extends State<DevicePage> {
       )
     );
   }
-  void NavigateToAccessOthers() {
-    Navigator.push(
-      context, 
-      MaterialPageRoute(
-        builder: (context) => AccessOthersPage(),
-        fullscreenDialog: true
-      )
-    );
-  }
-  void NavigateToSetupNew() {
+  void NavigateToSetupNew(context) {
     Navigator.push(
       context, 
       MaterialPageRoute(
