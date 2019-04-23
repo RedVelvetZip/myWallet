@@ -6,6 +6,7 @@ import 'package:bluewallet/analyticsController.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:bluewallet/profile/Controller/profileController.dart';
 import 'package:bluewallet/userController.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key, this.analControl, @required this.user})
@@ -24,6 +25,22 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
   }
   Controller _con;
   List<dynamic> _userDevices;
+  List _devlist = ["Brad's Secure wallet","Bradley's SecureDevice"]; 
+  String _devname;
+  DocumentReference db;
+  List<Widget> _createChildren() {
+                      return new List<Widget>.generate(_userDevices.length, (int index) {
+                        Firestore.instance.collection("devices").document("${_userDevices[index].toString()}").get().then((DocumentSnapshot){
+                          _devname = DocumentSnapshot.data['devicename'].toString();
+                            });
+                        return Text('Device name : ${_devlist[index]}\nProduct ID : ${_userDevices[index].toString()}',
+                        style: Theme.of(context)
+                        .textTheme
+                        .body1
+                        .merge(TextStyle(color: Colors.white)),
+                    textAlign: TextAlign.center,);
+                      });
+                    }
   String _xdev;
   @override
   Widget build(BuildContext context) {
@@ -42,8 +59,9 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
     );
 
     return Scaffold(
-      body: Center(
+      body: SingleChildScrollView(
         child: Container(
+          constraints: BoxConstraints.expand(height:450),
           decoration: linearGradient,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -115,22 +133,10 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
                   Padding(
                     padding: EdgeInsets.all(2.0),
                   ),
-                  Text(
-                    '${_userDevices}',
-                    //'${widget.user.devices.toString().replaceAll('[', '').replaceAll(']', '')}',
-                    //'${widget.user.devices['devicename']}',
-                    // for (_xdev in _userDevices) 
-                    // {
-                    //   '$_xdev.toString()\n'
-                    // }
-                    //'Brad\'s wallet HC-05',
-                    style: Theme.of(context)
-                        .textTheme
-                        .body1
-                        .merge(TextStyle(color: Colors.white)),
-                    textAlign: TextAlign.center,
-                  ),
-                ]),
+                  Column(
+                    children: _createChildren() 
+                    
+                  ),])
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),

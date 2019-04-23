@@ -16,12 +16,11 @@ class userController{
 
   LocationData _location;
   static String _uid;
+  static String _devid;
   static String _email;
-  static String _age;
-  static String _gender;
   static String _mobile;
   static String _name;
-  static String _occupation;
+  static String _devicename;
   static String _photoUrl;
 
   static List _devices;
@@ -34,8 +33,10 @@ class userController{
   }
 
   String get uid => _uid;
+  String get devid => _devid;
   String get email => _email;
   String get name => _name;
+  String get devicename => _devicename;
   String get mobile => _mobile;
   String get photoUrl => _photoUrl;
 
@@ -62,6 +63,12 @@ class userController{
         _latitude = __location.latitude;
         _longitude = __location.longitude;
         print('Location After Load: $_longitude , $_latitude');
+      }
+    );
+    Firestore.instance.collection('devices').document(_devid)
+      .get().then((DocumentSnapshot){
+        _devicename = DocumentSnapshot.data['devicename'].toString();
+        //_devices = DocumentSnapshot.data['devices'];
       }
     );
   }

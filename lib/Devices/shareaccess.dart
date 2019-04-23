@@ -33,8 +33,9 @@ class _ShareAccessPageState extends StateMVC<ShareAccessPage> {
         ],
       ),
     );
-    List _devices = ["Brad's Wallet", "Wallet #2", "Brad's briefcase"];
+    List _devices = ["206369082", "98:D3:71:FD:51:8E"];
     List devlist;
+    List<dynamic> _userDevices;
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _selectedDevice, _otheremail;
 
@@ -62,14 +63,16 @@ class _ShareAccessPageState extends StateMVC<ShareAccessPage> {
   Widget build(BuildContext context) {
     widget.user.load_data_from_firebase();
     //List<String> _thisusersdevs = widget.user.devices;
+    _userDevices = widget.user.devices;
      return Scaffold(
       appBar: AppBar(
         title: Text('Share Wallet Access'),
         backgroundColor: Colors.green,
       ),
-      body:  Container(
+      body: SingleChildScrollView(
+        child: Container(
         decoration: linearGradient,
-        
+        constraints: BoxConstraints.expand(height:520),
         child: Container(
         margin: EdgeInsets.all(15.0),
         child: Column(
@@ -99,12 +102,14 @@ class _ShareAccessPageState extends StateMVC<ShareAccessPage> {
                     decoration: InputDecoration(
                       hintText: "Other User Email",
                       fillColor: Colors.white
+                      
                     ),
                     onChanged: (input) => _otheremail = input,
                 ),
               ),
-              IconButton(
-                icon: Icon(Icons.add),
+              Icon(
+                Icons.add,
+                color: Colors.white,
               )
             ]),
             Row(
@@ -130,7 +135,9 @@ class _ShareAccessPageState extends StateMVC<ShareAccessPage> {
                       "otheraccess": FieldValue.arrayUnion(["$_otheremail"])
                     });
                     //ADD TO USER COLLECTION FOR THIS EMAIL
-
+                    Firestore.instance.collection("users").document("${_otheremail}").updateData({
+                      "hasaccessto": FieldValue.arrayUnion(["$_selectedDevice"])
+                    });
 
                   },
                   child: Text("Share Access"),
@@ -164,8 +171,7 @@ class _ShareAccessPageState extends StateMVC<ShareAccessPage> {
         ]),       
       )
       )
-    
+      )    
      );
   }
-  
 }

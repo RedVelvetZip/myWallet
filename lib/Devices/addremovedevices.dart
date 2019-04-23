@@ -43,7 +43,9 @@ class _AddRemoveDevicesPageState extends State<AddRemoveDevicesPage> {
         title: Text('Add/Remove Devices'),
         backgroundColor: Colors.red,
       ),
-      body: Container(
+      body: SingleChildScrollView(
+        child: Container(
+        constraints: BoxConstraints.expand(height:520),
         decoration: linearGradient,
         child: Container(
           margin: EdgeInsets.all(15.0),
@@ -107,6 +109,7 @@ class _AddRemoveDevicesPageState extends State<AddRemoveDevicesPage> {
                 Text("By hitting 'Add Device' you will register your product in our database with yourself as the primary owner. Access can be shared to other users in the 'Share Access' tab in settings, but you will be the owner while all others just have shared access.  ",
           style: TextStyle(color: Colors.green, height: 1.4)),
         ]),
+      )
       )
       )
     );
