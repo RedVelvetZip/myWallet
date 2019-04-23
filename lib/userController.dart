@@ -83,7 +83,7 @@ class userController{
   }
 
 Future updateLocation() async {
-
+    print("location has been updated");
     LocationData currentLocation;
 
     var location = new Location();
@@ -102,6 +102,9 @@ Future updateLocation() async {
         .collection("users")
         .document("$_uid")
         .updateData({"location": geopoint});
+    _latitude = geopoint.latitude;
+    _longitude = geopoint.longitude;
+        print('Location After Update: $_longitude , $_latitude');
     
   }
 }

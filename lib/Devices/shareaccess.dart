@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bluewallet/Devices/controller.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,7 +11,6 @@ class ShareAccessPage extends StatefulWidget {
     @required this.user
   }) : super(key: key);
 
-  //final FirebaseUser user;
   final userController user;
   @override
   _ShareAccessPageState createState() => _ShareAccessPageState();
@@ -36,17 +34,11 @@ class _ShareAccessPageState extends StateMVC<ShareAccessPage> {
       ),
     );
     List _devices = ["Brad's Wallet", "Wallet #2", "Brad's briefcase"];
-    //Firestore.instance.collection('users').document('567890').get();
-    
     List devlist;
-  
-
   List<DropdownMenuItem<String>> _dropDownMenuItems;
-  String _selectedDevice;
+  String _selectedDevice, _otheremail;
 
   @override
-  //widget.user.load_data_from_firebase();
-  //List<String> names = widget.user.devices;
   void initState() {
     _dropDownMenuItems = buildAndGetDropDownMenuItems(_devices);
     _selectedDevice = _dropDownMenuItems[0].value;
@@ -68,6 +60,8 @@ class _ShareAccessPageState extends StateMVC<ShareAccessPage> {
 }
   @override
   Widget build(BuildContext context) {
+    widget.user.load_data_from_firebase();
+    //List<String> _thisusersdevs = widget.user.devices;
      return Scaffold(
       appBar: AppBar(
         title: Text('Share Wallet Access'),
@@ -90,7 +84,7 @@ class _ShareAccessPageState extends StateMVC<ShareAccessPage> {
                 value: _selectedDevice,
                 items: _dropDownMenuItems,
                 onChanged: changedDropDownItem,
-),
+        ),
         Padding(
                     padding: EdgeInsets.all(25.0)
                   ),
@@ -101,30 +95,16 @@ class _ShareAccessPageState extends StateMVC<ShareAccessPage> {
                   ),
         Row(children: <Widget>[
               Expanded( 
-                child: TextFormField(
-                  controller: _con.textController,
-                  decoration: InputDecoration(
-                    hintText: "other user email",
-                  ),
-                  maxLength: 32,
-                  onEditingComplete: () => {
-                    _con.addInterest(widget.user),
-                    _con.textController.clear(),
-                    setState((){
-                      devlist = _con.interests;
-                    })
-                  },  
+                child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Other User Email",
+                      fillColor: Colors.white
+                    ),
+                    onChanged: (input) => _otheremail = input,
                 ),
               ),
               IconButton(
                 icon: Icon(Icons.add),
-                onPressed: () => {
-                  _con.addInterest(widget.user),
-                  _con.textController.clear(),
-                  setState((){
-                    devlist = _con.interests;
-                  })
-                },
               )
             ]),
             Row(
@@ -145,8 +125,13 @@ class _ShareAccessPageState extends StateMVC<ShareAccessPage> {
                 borderRadius: BorderRadius.circular(10), 
               ),
               onPressed: () {
-                    //widget.analControl.sendAnalytics('profileUpdate');
-                    //_con.update(widget.user);
+                  //YOU HAVE DEV NAME, NEED devID NOW
+                    Firestore.instance.collection("devices").document("${_selectedDevice}").updateData({
+                      "otheraccess": FieldValue.arrayUnion(["$_otheremail"])
+                    });
+                    //ADD TO USER COLLECTION FOR THIS EMAIL
+
+
                   },
                   child: Text("Share Access"),
                 ),
@@ -167,8 +152,10 @@ class _ShareAccessPageState extends StateMVC<ShareAccessPage> {
                 borderRadius: BorderRadius.circular(10), 
               ),
               onPressed: () {
-                    //widget.analControl.sendAnalytics('profileUpdate');
-                    //_con.update(widget.user);
+                    Firestore.instance.collection("devices").document("${_selectedDevice}").updateData({
+                      "otheraccess": FieldValue.arrayRemove(["$_otheremail"])
+                    });
+                    //ADD TO USER COLLECTION FOR THIS EMAIL
                   },
                   child: Text("Revoke Access"),
                 )
@@ -182,22 +169,3 @@ class _ShareAccessPageState extends StateMVC<ShareAccessPage> {
   }
   
 }
-// class DevList extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return new StreamBuilder(
-//       stream: Firestore.instance.collection('users').snapshots,
-//       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-//         if (!snapshot.hasData) return new Text('Loading...');
-//         return new ListView(
-//           children: snapshot.data.documents.map((document) {
-//             return new ListTile(
-//               title: new Text(document['title']),
-//               subtitle: new Text(document['type']),
-//             );
-//           }).toList(),
-//         );
-//       },
-//     );
-//   }
-// }

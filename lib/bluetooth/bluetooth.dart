@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:bluewallet/userController.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 // For using PlatformException
 import 'package:flutter/services.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 class BluetoothApp extends StatefulWidget {
+  BluetoothApp({Key key, @required this.user})
+      : super(key: key);
+
+  final userController user;
   @override
   _BluetoothAppState createState() => _BluetoothAppState();
 }
 
 class _BluetoothAppState extends State<BluetoothApp> {
-  // Initializing a global key, as it would help us in showing a SnackBar later
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  // Get the instance of the bluetooth
   FlutterBluetoothSerial bluetooth = FlutterBluetoothSerial.instance;
 
-  // Define some variables, which will be required later
   List<BluetoothDevice> _devicesList = [];
   BluetoothDevice _device;
   bool _connected = false;
   bool _pressed = false;
+  bool _access = false;
+  List<dynamic> _userDevices = [];
+  List<dynamic> _otherAccess = [];
+  String _ownerID, _devaddr;
   var linearGradient = const BoxDecoration(
       gradient: const LinearGradient(
         begin: FractionalOffset.centerRight,
@@ -40,15 +47,11 @@ class _BluetoothAppState extends State<BluetoothApp> {
   // We are using async callback for using await
   Future<void> bluetoothConnectionState() async {
     List<BluetoothDevice> devices = [];
-
-    // To get the list of paired devices
     try {
       devices = await bluetooth.getBondedDevices();
     } on PlatformException {
       print("Error");
     }
-
-    // For knowing when bluetooth is connected and when disconnected
     bluetooth.onStateChanged().listen((state) {
       switch (state) {
         case FlutterBluetoothSerial.CONNECTED:
@@ -56,44 +59,31 @@ class _BluetoothAppState extends State<BluetoothApp> {
             _connected = true;
             _pressed = false;
           });
-
           break;
-
         case FlutterBluetoothSerial.DISCONNECTED:
           setState(() {
             _connected = false;
             _pressed = false;
           });
           break;
-
         default:
           print(state);
           break;
       }
     });
 
-    // It is an error to call [setState] unless [mounted] is true.
     if (!mounted) {
       return;
     }
-
-    // Store the [devices] list in the [_devicesList] for accessing
-    // the list outside this class
     setState(() {
       _devicesList = devices;
     });
   }
-
-  // Now, its time to build the UI
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         key: _scaffoldKey,
-        // appBar: AppBar(
-        //   title: Text("Flutter Bluetooth"),
-        //   backgroundColor: Colors.deepPurple,
-        // ),
         body: Container(
           decoration: linearGradient,
           child: Column(
@@ -102,7 +92,7 @@ class _BluetoothAppState extends State<BluetoothApp> {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
-                  "PAIRED DEVICES",
+                  "SECURE DEVICES",
                   style: TextStyle(fontSize: 24, color: Colors.blue),
                   textAlign: TextAlign.center,
                 ),
@@ -136,30 +126,41 @@ class _BluetoothAppState extends State<BluetoothApp> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Card(
+                  color: Colors.blue[100],
                   elevation: 4,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            "DEVICE 1",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                        FlatButton(
+                        
+                        IconButton(
+                          icon: Icon(Icons.lock),
+                          iconSize: 135.0,
+                          color: Colors.red[800],
+                          disabledColor: Colors.grey,
+                          splashColor: Colors.red[800],
                           onPressed:
-                              _connected ? _sendOnMessageToBluetooth : null,
-                          child: Text("LOCK"),
+                              _connected ? _sendOnMessageToBluetooth : null, 
                         ),
-                        FlatButton(
+                        IconButton(
+                          icon: Icon(Icons.lock_open),
+                          iconSize: 135.0,
+                          color: Colors.green[800],
+                          disabledColor: Colors.grey,
+                          splashColor: Colors.green[800],
                           onPressed:
-                              _connected ? _sendOffMessageToBluetooth : null,
-                          child: Text("UNLOCK"),
+                              _connected ? _sendOffMessageToBluetooth : null, 
                         ),
+                        // FlatButton(
+                        //   onPressed:
+                        //       _connected ? _sendOnMessageToBluetooth : null,
+                        //   child: Text("LOCK"),
+                        // ),
+                        // FlatButton(
+                        //   onPressed:
+                        //       _connected ? _sendOffMessageToBluetooth : null,
+                        //   child: Text("UNLOCK"),
+                        // ),
                       ],
                     ),
                   ),
@@ -185,8 +186,6 @@ class _BluetoothAppState extends State<BluetoothApp> {
       ),
     );
   }
-
-  // Create the List of devices to be shown in Dropdown Menu
   List<DropdownMenuItem<BluetoothDevice>> _getDeviceItems() {
     List<DropdownMenuItem<BluetoothDevice>> items = [];
     if (_devicesList.isEmpty) {
@@ -203,12 +202,15 @@ class _BluetoothAppState extends State<BluetoothApp> {
     }
     return items;
   }
-
-  // Method to connect to bluetooth
   void _connect() {
+    _setOwners();
+    if (widget.user.uid.toString() == _ownerID) {
+      _access = true;
+    }
     if (_device == null) {
       show('No device selected');
     } else {
+      widget.user.updateLocation();
       bluetooth.isConnected.then((isConnected) {
         if (!isConnected) {
           bluetooth
@@ -222,37 +224,30 @@ class _BluetoothAppState extends State<BluetoothApp> {
       });
     }
   }
-
-  // Method to disconnect bluetooth
   void _disconnect() {
     bluetooth.disconnect();
     setState(() => _pressed = true);
   }
-
-  // Method to send message,
-  // for turning the bletooth device on
   void _sendOnMessageToBluetooth() {
+    widget.user.updateLocation();
+    _setOwners();
     bluetooth.isConnected.then((isConnected) {
-      if (isConnected) {
-        bluetooth.write("2");
-        show('Device Locked');
+      if (isConnected && _access) {
+        bluetooth.write("3");
+        show('Your Device is LOCKED');
       }
     });
   }
-
-  // Method to send message,
-  // for turning the bletooth device off
   void _sendOffMessageToBluetooth() {
+    widget.user.updateLocation();
+    _setOwners();
     bluetooth.isConnected.then((isConnected) {
-      if (isConnected) {
-        bluetooth.write("1");
-        show('Device Unlocked');
+      if (isConnected && _access) {
+        bluetooth.write("2");
+        show('Your Device is UNLOCKED');
       }
     });
   }
-
-  // Method to show a Snackbar,
-  // taking message as the text
   Future show(
     String message, {
     Duration duration: const Duration(seconds: 3),
@@ -266,5 +261,33 @@ class _BluetoothAppState extends State<BluetoothApp> {
         duration: duration,
       ),
     );
+  }
+  void _setOwners() {
+    _userDevices = widget.user.devices;
+    _devaddr = _device.address.toString();
+    print("devices doc location being queried is $_devaddr");
+    Firestore.instance.collection("devices").document("$_devaddr").get().then((DocumentSnapshot){
+        _otherAccess = DocumentSnapshot.data['otheraccess'];
+        _ownerID = DocumentSnapshot.data['ownerID'].toString();
+    });
+    print("setOwners function set ownerID to $_ownerID");
+    _ownertodev();
+    _ownertoshared();
+  }
+  void _ownertodev() {
+      if (widget.user.uid.toString() == _ownerID) {
+        _access=true;
+        print("OWNER TO OWN DEVICE");
+      }
+  }
+  void _ownertoshared() {
+    String _xdev;
+    for (_xdev in _userDevices) 
+    {
+      if (_xdev.toString() == _devaddr) {
+        _access=true;
+        print("OWNER TO BORROWED DEVICE");
+      }
+    }
   }
 }

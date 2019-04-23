@@ -5,10 +5,10 @@ class SetupNewPage extends StatefulWidget {
 
   SetupNewPage({
     Key key,
-    @required this.user
+  //  @required this.user
   }) : super(key: key);
 
-  final FirebaseUser user;
+  //final FirebaseUser user;
   
   @override
   _SetupNewPageState createState() => _SetupNewPageState();

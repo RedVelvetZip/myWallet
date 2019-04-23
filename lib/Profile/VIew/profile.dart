@@ -23,14 +23,13 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
     _con = Controller.con;
   }
   Controller _con;
-
+  List<dynamic> _userDevices;
+  String _xdev;
   @override
   Widget build(BuildContext context) {
     widget.user.load_data_from_firebase();
     widget.analControl.currentScreen('profile_page', 'ProfilePageOver');
-
-    widget.user.updateLocation();
-
+    _userDevices = widget.user.devices;
     var linearGradient = const BoxDecoration(
       gradient: const LinearGradient(
         begin: FractionalOffset.centerRight,
@@ -47,7 +46,6 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
         child: Container(
           decoration: linearGradient,
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Container(
@@ -118,9 +116,14 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
                     padding: EdgeInsets.all(2.0),
                   ),
                   Text(
+                    '${_userDevices}',
                     //'${widget.user.devices.toString().replaceAll('[', '').replaceAll(']', '')}',
                     //'${widget.user.devices['devicename']}',
-                    'Brad\'s wallet HC-05',
+                    // for (_xdev in _userDevices) 
+                    // {
+                    //   '$_xdev.toString()\n'
+                    // }
+                    //'Brad\'s wallet HC-05',
                     style: Theme.of(context)
                         .textTheme
                         .body1

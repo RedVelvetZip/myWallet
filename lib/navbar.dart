@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-//import 'package:bluewallet/buddies/View/buddies.dart';
 import 'package:bluewallet/Profile/View/profile.dart';
-//import 'package:bluewallet/messages/messages.dart';
-import 'package:bluewallet/Settings/settings.dart';
 import 'package:bluewallet/prop-config.dart';
 import 'package:bluewallet/analyticsController.dart';
 import 'package:bluewallet/userController.dart';
@@ -32,11 +29,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   List<String> pages = [
     Headers.profile,
-    //Headers.messages, 
     Headers.newdevice,
     Headers.devices,
-    //Headers.findBuddies,
-    //Headers.settings,
   ];
 
   @override
@@ -67,22 +61,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             
             case Headers.newdevice:
               widget.analControl.sendAnalytics('nav_to_messages');
-              return BluetoothApp();
-              //return MessagePage(user: widget.user, analControl: widget.analControl);
-              //return MessagePage(user: widget.user, analControl: widget.analControl);
+              return BluetoothApp(user: widget.user);
               break;
 
              case Headers.devices:
               widget.analControl.sendAnalytics('nav_to_buddies');
-              return DevicePage(user: widget.user, analControl: widget.analControl);
-              //return BuddiesPage(user: widget.user, analControl: widget.analControl);
+              return DevicePage(user: widget.user);
               break;
-
-            // case Headers.settings:
-            //   widget.analControl.sendAnalytics('nav_to_settings');
-            //   //return ProfilePage(user: widget.user, analControl: widget.analControl);
-            //   return SettingsPage(user: widget.user, analControl: widget.analControl);
-            //   break;
 
             default:
               return ProfilePage(user: widget.user, analControl: widget.analControl);
@@ -111,11 +96,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               title: Text("Settings"),
               activeColor: Colors.purple,
           ),
-          // BottomNavyBarItem(
-          //     icon: Icon(Icons.settings),
-          //     title: Text(Headers.settings),
-          //     activeColor: Colors.purple,
-          // ),
         ],
       )
     );

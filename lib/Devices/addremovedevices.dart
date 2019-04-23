@@ -4,6 +4,7 @@ import 'package:bluewallet/prop-config.dart';
 import 'package:bluewallet/analyticsController.dart';
 import 'package:bluewallet/userController.dart';
 import 'package:bluewallet/Devices/controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddRemoveDevicesPage extends StatefulWidget {
 
@@ -12,7 +13,7 @@ class AddRemoveDevicesPage extends StatefulWidget {
     @required this.user
   }) : super(key: key);
 
-  final FirebaseUser user;
+  final userController user;
 
   @override
   _AddRemoveDevicesPageState createState() => _AddRemoveDevicesPageState();
@@ -22,6 +23,7 @@ class _AddRemoveDevicesPageState extends State<AddRemoveDevicesPage> {
  // _AddRemoveDevicesPageState() : super(Controller()) {
   //  _con = Controller.con;
   //}
+  String productID, devName;
   Controller _con; 
   var linearGradient = const BoxDecoration(
       gradient: const LinearGradient(
@@ -35,6 +37,7 @@ class _AddRemoveDevicesPageState extends State<AddRemoveDevicesPage> {
     );
   @override
   Widget build(BuildContext context) {
+    widget.user.load_data_from_firebase();
     return Scaffold(
       appBar: AppBar(
         title: Text('Add/Remove Devices'),
@@ -50,15 +53,25 @@ class _AddRemoveDevicesPageState extends State<AddRemoveDevicesPage> {
         children: <Widget>[ 
         Text("To register a new device, you'll need the product key on the packaging.  ",
           style: TextStyle(color: Colors.green, height: 1.4)),
-        
-
-        TextFormField(
+        TextField(
                     decoration: InputDecoration(
                       hintText: "Product ID",
                       fillColor: Colors.white
                       //labelText: "widget.user.mobile"
                     ),
-                    onSaved: (input) => _con.set_ID = input,
+                    onChanged: (input) => productID = input,
+                ),
+                SizedBox(height: 15.0),
+
+                Text("Please name this device:  ",
+          style: TextStyle(color: Colors.green, height: 1.0)),
+        TextField(
+                    decoration: InputDecoration(
+                      hintText: "Name",
+                      fillColor: Colors.white
+                      //labelText: "widget.user.mobile"
+                    ),
+                    onChanged: (input) => devName = input,
                 ),
                 SizedBox(height: 15.0),
 
@@ -76,8 +89,15 @@ class _AddRemoveDevicesPageState extends State<AddRemoveDevicesPage> {
                 borderRadius: BorderRadius.circular(10), 
               ),
               onPressed: () {
-                    //widget.analControl.sendAnalytics('profileUpdate');
-                    //_con.update(widget.user);
+                    Firestore.instance.collection("devices").document("$productID").setData({
+                      "ownerEmail": "${widget.user.email}",
+                      "ownerID": "${widget.user.uid}",
+                      "devicename": "$devName",
+                      "otheraccess": FieldValue.arrayUnion([null])
+                    });
+                    Firestore.instance.collection("users").document("${widget.user.uid}").updateData({
+                      "devices": FieldValue.arrayUnion(["$productID"])
+                    });
                   },
                   child: Text("Add Device"),
                 ),

@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:bluewallet/Devices/mydevices.dart';
 import 'package:bluewallet/Devices/addremovedevices.dart';
 import 'package:bluewallet/Devices/shareaccess.dart';
-import 'package:bluewallet/Devices/accessothers.dart';
 import 'package:bluewallet/Devices/setupnew.dart';
-import 'package:bluewallet/analyticsController.dart';
 import 'package:bluewallet/userController.dart';
 import 'package:bluewallet/prop-config.dart';
-import 'package:bluewallet/settings/controller.dart';
+import 'package:bluewallet/Devices/supportView.dart';
 
 
 class DevicePage extends StatefulWidget {
 
-  DevicePage({Key key, this.analControl, @required this.user})
+  DevicePage({Key key, @required this.user})
       : super(key: key);
 
   final userController user;
-  final analyticsController analControl;
+  //final analyticsController analControl;
 
 
   @override
@@ -36,6 +33,7 @@ class _DevicePageState extends State<DevicePage> {
     );
   @override
   Widget build(BuildContext context) {
+    widget.user.load_data_from_firebase();
     return Scaffold(
       body: Center(
         child: Container(
@@ -61,7 +59,8 @@ class _DevicePageState extends State<DevicePage> {
                 borderRadius: BorderRadius.circular(10), 
               ),
               onPressed: () { 
-                     NavigateToAddRemoveDevices(context);
+                      //print("${widget.user.email}");
+                     navigateToAddRemoveDevices(context);
               },
               child: Text('Add/Remove Device'),
           ),
@@ -82,7 +81,7 @@ class _DevicePageState extends State<DevicePage> {
                 borderRadius: BorderRadius.circular(10), 
               ),
               onPressed: () { 
-                     NavigateToShareAccess(context);
+                     navigateToShareAccess(context);
               },
               child: Text('Share Access'),
           ),
@@ -103,7 +102,7 @@ class _DevicePageState extends State<DevicePage> {
                 borderRadius: BorderRadius.circular(10), 
               ),
               onPressed: () { 
-                      NavigateToSetupNew(context);
+                      navigateToSetupNew(context);
               },
               child: Text('How do I set up a new Secure Device?'),
           ),
@@ -124,7 +123,7 @@ class _DevicePageState extends State<DevicePage> {
                 borderRadius: BorderRadius.circular(10), 
               ),
               onPressed: () { 
-                      Controller.navigateToSupport(context);
+                      navigateToSupport(context);
               },
               child: Text(Prompts.support),
           ),
@@ -136,24 +135,24 @@ class _DevicePageState extends State<DevicePage> {
     );
   }
 
-  void NavigateToAddRemoveDevices(context) {
+  void navigateToAddRemoveDevices(context) {
     Navigator.push(
       context, 
       MaterialPageRoute(
-        builder: (context) => AddRemoveDevicesPage(),
+        builder: (context) => AddRemoveDevicesPage(user: widget.user),
         fullscreenDialog: true
       )
     );
-  }void NavigateToShareAccess(context) {
+  }void navigateToShareAccess(context) {
     Navigator.push(
       context, 
       MaterialPageRoute(
-        builder: (context) => ShareAccessPage(),
+        builder: (context) => ShareAccessPage(user: widget.user),
         fullscreenDialog: true
       )
     );
   }
-  void NavigateToSetupNew(context) {
+  void navigateToSetupNew(context) {
     Navigator.push(
       context, 
       MaterialPageRoute(
@@ -162,5 +161,15 @@ class _DevicePageState extends State<DevicePage> {
       )
     );
   }
+  static void navigateToSupport
+      (BuildContext context, ){
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SupportPage(),
+          fullscreenDialog: true
+        )
+      );
+    }
 
 }
