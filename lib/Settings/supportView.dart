@@ -25,6 +25,10 @@ class _SupportPageState extends StateMVC<SupportPage> {
       ),
     );
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Meet the team!'),
+        backgroundColor: Colors.teal,
+      ),
       body: Center(
         child: Container(
           decoration: linearGradient,
@@ -35,10 +39,10 @@ class _SupportPageState extends StateMVC<SupportPage> {
               
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 30.0),
-                padding: EdgeInsets.all(10.0),
+                //padding: EdgeInsets.all(10.0),
                 child: Column(children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.all(30.0)
+                    padding: EdgeInsets.all(7.0)
                   ),
                   Text(
                     Prompts.meet,
@@ -60,7 +64,7 @@ class _SupportPageState extends StateMVC<SupportPage> {
                     textAlign: TextAlign.center,
                   ),
                   Padding(
-                    padding: EdgeInsets.all(30.0)
+                    padding: EdgeInsets.all(25.0)
                   ),
                   //dev1
                   Row(children: <Widget>[
@@ -87,7 +91,7 @@ class _SupportPageState extends StateMVC<SupportPage> {
                   ),
                   ]),
                   Padding(
-                    padding: EdgeInsets.all(30.0)
+                    padding: EdgeInsets.all(25.0)
                   ),
                   //dev2
                   Row(children: <Widget>[
@@ -114,7 +118,7 @@ class _SupportPageState extends StateMVC<SupportPage> {
                   ),
                   ]),
                   Padding(
-                    padding: EdgeInsets.all(30.0)
+                    padding: EdgeInsets.all(25.0)
                   ),
                   Row(children: <Widget>[
                   Material(
@@ -140,7 +144,7 @@ class _SupportPageState extends StateMVC<SupportPage> {
                   ),
                   ]),
                   Padding(
-                    padding: EdgeInsets.all(30.0)
+                    padding: EdgeInsets.all(25.0)
                   ),
                   Row(children: <Widget>[
                   Material(

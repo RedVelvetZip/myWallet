@@ -33,7 +33,7 @@ class _SetupNewPageState extends State<SetupNewPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('New To SecureWallet'),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.teal,
       ),
       body: Container(
         decoration: linearGradient,

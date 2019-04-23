@@ -19,9 +19,9 @@ class AddRemoveDevicesPage extends StatefulWidget {
 }
 
 class _AddRemoveDevicesPageState extends State<AddRemoveDevicesPage> { 
-  _AddRemoveDevicesPageState() : super(Controller()) {
-    _con = Controller.con;
-  }
+ // _AddRemoveDevicesPageState() : super(Controller()) {
+  //  _con = Controller.con;
+  //}
   Controller _con; 
   var linearGradient = const BoxDecoration(
       gradient: const LinearGradient(
@@ -45,7 +45,8 @@ class _AddRemoveDevicesPageState extends State<AddRemoveDevicesPage> {
         child: Container(
           margin: EdgeInsets.all(15.0),
         child: Column(
-        
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[ 
         Text("To register a new device, you'll need the product key on the packaging.  ",
           style: TextStyle(color: Colors.green, height: 1.4)),
@@ -79,7 +80,12 @@ class _AddRemoveDevicesPageState extends State<AddRemoveDevicesPage> {
                     //_con.update(widget.user);
                   },
                   child: Text("Add Device"),
-                )
+                ),
+                Padding(
+                    padding: EdgeInsets.all(25.0)
+                  ),
+                Text("By hitting 'Add Device' you will register your product in our database with yourself as the primary owner. Access can be shared to other users in the 'Share Access' tab in settings, but you will be the owner while all others just have shared access.  ",
+          style: TextStyle(color: Colors.green, height: 1.4)),
         ]),
       )
       )
