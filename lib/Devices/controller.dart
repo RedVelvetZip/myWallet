@@ -6,7 +6,6 @@ import 'package:bluewallet/userController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:bluewallet/Welcome/login/view.dart';
 import 'package:bluewallet/analyticsController.dart';
 
 class Controller extends ControllerMVC {

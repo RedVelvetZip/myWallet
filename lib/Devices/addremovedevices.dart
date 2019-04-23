@@ -18,11 +18,11 @@ class AddRemoveDevicesPage extends StatefulWidget {
   _AddRemoveDevicesPageState createState() => _AddRemoveDevicesPageState();
 }
 
-class _AddRemoveDevicesPageState extends State<AddRemoveDevicesPage> {  
-  //String _name, _age, _gender, _occupation, _mobile;
-  //final GlobalKey<FormState> 
-    //_formkey = GlobalKey<FormState>();
-     //need to link this to specific UID
+class _AddRemoveDevicesPageState extends State<AddRemoveDevicesPage> { 
+  _AddRemoveDevicesPageState() : super(Controller()) {
+    _con = Controller.con;
+  }
+  Controller _con; 
   var linearGradient = const BoxDecoration(
       gradient: const LinearGradient(
         begin: FractionalOffset.centerRight,
@@ -57,7 +57,7 @@ class _AddRemoveDevicesPageState extends State<AddRemoveDevicesPage> {
                       fillColor: Colors.white
                       //labelText: "widget.user.mobile"
                     ),
-                    //onSaved: (input) => _con.set_mobile = input,
+                    onSaved: (input) => _con.set_ID = input,
                 ),
                 SizedBox(height: 15.0),
 
