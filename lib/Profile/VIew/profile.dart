@@ -59,8 +59,10 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
     );
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
+      body: 
+      // SingleChildScrollView(
+      //   child: 
+        Container(
           constraints: BoxConstraints.expand(height:450),
           decoration: linearGradient,
           child: Column(
@@ -172,7 +174,7 @@ class _ProfilePageState extends StateMVC<ProfilePage> {
               ),
              ],
           ),
-        ),
+       // ),
       ),
     );
   }
